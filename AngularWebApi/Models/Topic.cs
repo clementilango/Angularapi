@@ -9,8 +9,9 @@ namespace ForumWebApi.Models
     {
         public int TopicId { get; set; }
         public int CategoryId { get; set; }
-        public int TitleName { get; set; }
-        public int Description { get; set; }
+        public string TitleName { get; set; }
+        public string Description { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int CommentCount { get; set; }
     }
 }

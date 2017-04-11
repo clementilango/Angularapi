@@ -24,13 +24,14 @@ namespace ForumWebApi.Controllers
                 if (context.Categories.Count() > 0)
                 {
                     var xx = (from em in context.Categories
-                              select new { em.CategoryId, em.CategoryName, em.Description }).ToList();
+                              select new { em.CategoryId, em.CategoryName, em.Description, em.Topics }).ToList();
                     foreach (var category in xx)
                     {
                         var cat = new Models.Category();
                         cat.CategoryId = category.CategoryId;
                         cat.CategoryName = category.CategoryName;
                         cat.Description = category.Description;
+                        cat.TopicsCount = category.Topics.Count();
                         categories.Add(cat);
                     }
                 }

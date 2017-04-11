@@ -23,8 +23,7 @@ namespace AngularWebApi
         public int CategoryId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public System.DateTime Created { get; set; }
-    
+        public System.DateTime Created { get; set; }    
         public virtual Category Category { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
     }
