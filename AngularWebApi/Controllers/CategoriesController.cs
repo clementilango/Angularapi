@@ -13,13 +13,13 @@ namespace ForumWebApi.Controllers
     //[Authorize]
     public class CategoriesController : ApiController
     {
-
-        FORUMEntities1 db = new FORUMEntities1();
+        
+        FORUMEntities3 db = new FORUMEntities3();
         // GET api/values
         public List<Models.Category> Get()
         {
             var categories = new List<Models.Category>();
-            using (var context = new FORUMEntities1())
+            using (var context = new FORUMEntities3())
             {
                 if (context.Categories.Count() > 0)
                 {
@@ -47,7 +47,7 @@ namespace ForumWebApi.Controllers
         // POST api/values
         public string Post(Models.Category category)
         {
-            using (FORUMEntities1 context = new FORUMEntities1())
+            using (FORUMEntities3 context = new FORUMEntities3())
             {
                 var cat = new AngularWebApi.Category();
                 cat.CategoryId = category.CategoryId;

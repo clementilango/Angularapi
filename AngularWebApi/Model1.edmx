@@ -4,38 +4,51 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FORUMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="FORUMModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="FORUMModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="FORUMModel.Store.Categories" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Comments" EntityType="FORUMModel.Store.Comments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Topics" EntityType="FORUMModel.Store.Topics" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Comments__TopicI__6FE99F9F" Association="FORUMModel.Store.FK__Comments__TopicI__6FE99F9F">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Topics__Created__5CD6CB2B" Association="FORUMModel.Store.FK__Topics__Created__5CD6CB2B">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Topics" EntitySet="Topics" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
-          <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CategoryName" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="CategoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="varchar" Nullable="false" MaxLength="256" />
           <Property Name="Description" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommentId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TopicId" Type="int" Nullable="false" />
-          <Property Name="Text" Type="varchar" MaxLength="256" Nullable="false" />
-          <Property Name="CommentedBy" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Text" Type="varchar" Nullable="false" MaxLength="256" />
+          <Property Name="CommentedBy" Type="varchar" Nullable="false" MaxLength="20" />
           <Property Name="CreatedOn" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Topics">
           <Key>
             <PropertyRef Name="TopicId" />
           </Key>
-          <Property Name="TopicId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TopicId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
-          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Title" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Description" Type="nvarchar" MaxLength="1" />
           <Property Name="Created" Type="date" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Comments__TopicI__02FC7413">
-          <End Role="Topics" Type="Self.Topics" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+        <Association Name="FK__Comments__TopicI__6FE99F9F">
+          <End Role="Topics" Type="FORUMModel.Store.Topics" Multiplicity="1" />
+          <End Role="Comments" Type="FORUMModel.Store.Comments" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topics">
               <PropertyRef Name="TopicId" />
@@ -46,8 +59,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Topics__Created__5CD6CB2B">
-          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
-          <End Role="Topics" Type="Self.Topics" Multiplicity="*" />
+          <End Role="Categories" Type="FORUMModel.Store.Categories" Multiplicity="1" />
+          <End Role="Topics" Type="FORUMModel.Store.Topics" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
@@ -57,59 +70,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FORUMModelStoreContainer">
-          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Topics" EntityType="Self.Topics" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Comments__TopicI__02FC7413" Association="Self.FK__Comments__TopicI__02FC7413">
-            <End Role="Topics" EntitySet="Topics" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Topics__Created__5CD6CB2B" Association="Self.FK__Topics__Created__5CD6CB2B">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Topics" EntitySet="Topics" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FORUMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="FORUMModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FORUMEntities3" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="FORUMModel.Category" />
+          <EntitySet Name="Comments" EntityType="FORUMModel.Comment" />
+          <EntitySet Name="Topics" EntityType="FORUMModel.Topic" />
+          <AssociationSet Name="FK__Topics__Created__5CD6CB2B" Association="FORUMModel.FK__Topics__Created__5CD6CB2B">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Topics" EntitySet="Topics" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__TopicI__6FE99F9F" Association="FORUMModel.FK__Comments__TopicI__6FE99F9F">
+            <End Role="Topics" EntitySet="Topics" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="CategoryId" />
           </Key>
-          <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CategoryName" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Topics" Relationship="Self.FK__Topics__Created__5CD6CB2B" FromRole="Categories" ToRole="Topics" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Topics" Relationship="FORUMModel.FK__Topics__Created__5CD6CB2B" FromRole="Categories" ToRole="Topics" />
         </EntityType>
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="CommentId" />
           </Key>
-          <Property Name="CommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommentId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="TopicId" Type="Int32" Nullable="false" />
-          <Property Name="Text" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CommentedBy" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Text" Type="String" Nullable="false" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="CommentedBy" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Topic" Relationship="Self.FK__Comments__TopicI__02FC7413" FromRole="Comments" ToRole="Topics" />
+          <NavigationProperty Name="Topic" Relationship="FORUMModel.FK__Comments__TopicI__6FE99F9F" FromRole="Comments" ToRole="Topics" />
         </EntityType>
         <EntityType Name="Topic">
           <Key>
             <PropertyRef Name="TopicId" />
           </Key>
-          <Property Name="TopicId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TopicId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="1" Unicode="true" FixedLength="false" />
           <Property Name="Created" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Category" Relationship="Self.FK__Topics__Created__5CD6CB2B" FromRole="Topics" ToRole="Categories" />
-          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__TopicI__02FC7413" FromRole="Topics" ToRole="Comments" />
+          <NavigationProperty Name="Category" Relationship="FORUMModel.FK__Topics__Created__5CD6CB2B" FromRole="Topics" ToRole="Categories" />
+          <NavigationProperty Name="Comments" Relationship="FORUMModel.FK__Comments__TopicI__6FE99F9F" FromRole="Topics" ToRole="Comments" />
         </EntityType>
         <Association Name="FK__Topics__Created__5CD6CB2B">
-          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
-          <End Role="Topics" Type="Self.Topic" Multiplicity="*" />
+          <End Role="Categories" Type="FORUMModel.Category" Multiplicity="1" />
+          <End Role="Topics" Type="FORUMModel.Topic" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Categories">
               <PropertyRef Name="CategoryId" />
@@ -119,9 +132,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Comments__TopicI__02FC7413">
-          <End Role="Topics" Type="Self.Topic" Multiplicity="1" />
-          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
+        <Association Name="FK__Comments__TopicI__6FE99F9F">
+          <End Role="Topics" Type="FORUMModel.Topic" Multiplicity="1" />
+          <End Role="Comments" Type="FORUMModel.Comment" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Topics">
               <PropertyRef Name="TopicId" />
@@ -131,25 +144,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="FORUMEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Comments" EntityType="Self.Comment" />
-          <EntitySet Name="Topics" EntityType="Self.Topic" />
-          <AssociationSet Name="FK__Topics__Created__5CD6CB2B" Association="Self.FK__Topics__Created__5CD6CB2B">
-            <End Role="Categories" EntitySet="Categories" />
-            <End Role="Topics" EntitySet="Topics" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Comments__TopicI__02FC7413" Association="Self.FK__Comments__TopicI__02FC7413">
-            <End Role="Topics" EntitySet="Topics" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FORUMModelStoreContainer" CdmEntityContainer="FORUMEntities1">
+        <EntityContainerMapping StorageEntityContainer="FORUMModelStoreContainer" CdmEntityContainer="FORUMEntities3">
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="FORUMModel.Category">
               <MappingFragment StoreEntitySet="Categories">
@@ -195,9 +195,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
